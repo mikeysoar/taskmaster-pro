@@ -96,8 +96,7 @@ $(".list-group").on("click", "p", function () {
 $(".list-group").on("blur", "textarea", function () {
   // get the textarea's current value/text
   var text = $(this)
-    .val()
-    .trim();
+    .val();
 
   // get the parent ul's id attribute
   var status = $(this)
@@ -141,11 +140,10 @@ $(".list-group").on("click", "span", function () {
 });
 
 // value of due date was changed
-$(".list-group").on("blur", "input[type='text]", function () {
+$(".list-group").on("blur", "input[type='text']", function () {
   //get current text
   var date = $(this)
-    .val()
-    .trim();
+    .val();
 
   // get the parent ul's id attribute
   var status = $(this)
@@ -159,11 +157,11 @@ $(".list-group").on("blur", "input[type='text]", function () {
     .index();
 
   // update task in array and re-save to localstorage
-  tasks[status][index].date = datye;
+  tasks[status][index].date = date;
   saveTasks();
 
   // recreate span element with bootstrap classes
-  var tasSpan = $("<span>")
+  var taskSpan = $("<span>")
     .addClass("badge badge-primary badge-pill")
     .text(date);
 
