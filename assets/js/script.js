@@ -17,7 +17,11 @@ var createTask = function(taskText, taskDate, taskList) {
 
   // check due date
   auditTask(taskLi);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> develop
   // append to ul list on the page
   $("#list-" + taskList).append(taskLi);
 };
@@ -38,6 +42,7 @@ var loadTasks = function() {
   // loop over object properties
   $.each(tasks, function(list, arr) {
     
+    console.log(list, arr);
     // then loop over sub-array
     arr.forEach(function(task) {
       createTask(task.text, task.date, list);
@@ -70,6 +75,9 @@ var auditTask = function(taskEl) {
   }
 
 };
+var auditTask = function() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 $(".card .list-group").sortable({
   connectWith: $(".card .list-group"),
@@ -115,7 +123,7 @@ $(".card .list-group").sortable({
     tasks[arrName] = tempArr;
     saveTasks();
   },
-  stop: function(event) {
+  stop: function (event) {
     $(this).removeClass("dropover");
   }
 });
@@ -289,3 +297,11 @@ $("#remove-tasks").on("click", function() {
 
 // load tasks for the first time
 loadTasks();
+
+// audit task due dates every 30 minutes
+setInterval(function () {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+}, 1800000);
+
