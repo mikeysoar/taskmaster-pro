@@ -37,9 +37,7 @@ var loadTasks = function() {
   }
 
   // loop over object properties
-  $.each(tasks, function(list, arr) {
-    
-    console.log(list, arr);
+  $.each(tasks, function(list, arr) {    
     // then loop over sub-array
     arr.forEach(function(task) {
       createTask(task.text, task.date, list);
@@ -70,11 +68,7 @@ var auditTask = function(taskEl) {
   else if (Math.abs(moment().diff(time, "days")) <= 2) {
     $(taskEl).addClass("list-group-item-warning");
   }
-
 };
-var auditTask = function() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
 
 $(".card .list-group").sortable({
   connectWith: $(".card .list-group"),
@@ -130,7 +124,6 @@ $("#trash").droppable({
   tolerance: "touch",
   drop: function(event, ui) {
     ui.draggable.remove();
-
   },
   over: function(event, ui) {
     console.log(ui);
