@@ -17,11 +17,8 @@ var createTask = function(taskText, taskDate, taskList) {
 
   // check due date
   auditTask(taskLi);
-<<<<<<< HEAD
 
-=======
   
->>>>>>> develop
   // append to ul list on the page
   $("#list-" + taskList).append(taskLi);
 };
