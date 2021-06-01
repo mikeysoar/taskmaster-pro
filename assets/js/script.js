@@ -13,7 +13,9 @@ var createTask = function (taskText, taskDate, taskList) {
   // append span and p element to parent li
   taskLi.append(taskSpan, taskP);
 
-
+  // check due date
+  auditTask(taskLi);
+  
   // append to ul list on the page
   $("#list-" + taskList).append(taskLi);
 };
@@ -44,6 +46,10 @@ var loadTasks = function () {
 var saveTasks = function () {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
+
+var auditTask = function() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 $(".card .list-group").sortable({
   connectWith: $(".card .list-group"),
@@ -79,7 +85,7 @@ $(".card .list-group").sortable({
           .trim(),
       });
     });
-   
+
     // trim down list's ID to match object property
     var arrName = $(this)
       .attr("id")
@@ -89,7 +95,7 @@ $(".card .list-group").sortable({
     tasks[arrName] = tempArr;
     saveTasks();
   },
-  stop: function(event) {
+  stop: function (event) {
     $(this).removeClass("dropover");
   }
 });
@@ -99,7 +105,7 @@ $("#trash").droppable({
   tolerance: "touch",
   drop: function (event, ui) {
     ui.draggable.remove();
-    
+
   },
   over: function (event, ui) {
     console.log(ui);
@@ -239,9 +245,18 @@ $("#remove-tasks").on("click", function () {
   for (var key in tasks) {
     tasks[key].length = 0;
     $("#list-" + key).empty();
-  }console.log(tasks);
+  } 
+  console.log(tasks);
   saveTasks();
 });
 
 // load tasks for the first time
 loadTasks();
+
+// audit task due dates every 30 minutes
+setInterval(function () {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+}, 1800000);
+
